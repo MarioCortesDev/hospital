@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <h2>Consulta de Citas</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <form th:action="@{/appointments}" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="doctor" class="form-label">Doctor</label>
+                    <select class="form-control" id="doctor" name="doctorId">
+                        <option value="">Todos los doctores</option>
+                        <option th:each="doctor : ${doctors}" 
+                                th:value="${doctor.id}" 
+                                th:text="${doctor.firstName + ' ' + doctor.lastName}"
+                                th:selected="${doctorId == doctor.id}">
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Fecha</label>
+                    <input type="date" class="form-control" id="date" name="date" 
+                           th:value="${#temporals.format(date, 'yyyy-MM-dd')}">
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="room" class="form-label">Consultorio</label>
+                    <select class="form-control" id="room" name="roomId">
+                        <option value="">Todos los consultorios</option>
+                        <option th:each="room : ${rooms}" 
+                                th:value="${room.id}" 
+                                th:text="'Consultorio ' + ${room.roomNumber}"
+                                th:selected="${roomId == room.id}">
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Consultorio</th>
+                    <th>Paciente</th>
+                    <th>Fecha y Hora</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="appointment : ${appointments}">
+                    <td th:text="${appointment.doctor.firstName + ' ' + appointment.doctor.lastName}"></td>
+                    <td th:text="'Consultorio ' + ${appointment.consultingRoom.roomNumber}"></td>
+                    <td th:text="${appointment.patientName}"></td>
+                    <td th:text="${#temporals.format(appointment.appointmentTime, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td>
+                        <a th:href="@{/appointments/edit/{id}(id=${appointment.id})}" 
+                           class="btn btn-sm btn-warning">Editar</a>
+                        <form th:action="@{/appointments/{id}/cancel(id=${appointment.id})}" 
+                              method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('¿Está seguro de cancelar esta cita?')">
+                                Cancelar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>

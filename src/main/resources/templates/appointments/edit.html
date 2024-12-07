@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <h2>Editar Cita</h2>
+    
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+    
+    <form th:action="@{/appointments/edit/{id}(id=${appointment.id})}" method="post">
+        <div class="mb-3">
+            <label for="doctor" class="form-label">Doctor</label>
+            <select class="form-control" id="doctor" name="doctorId" required>
+                <option value="">Seleccione un doctor</option>
+                <option th:each="doctor : ${doctors}" 
+                        th:value="${doctor.id}" 
+                        th:text="${doctor.firstName + ' ' + doctor.lastName}"
+                        th:selected="${appointment.doctor.id == doctor.id}">
+                </option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="room" class="form-label">Consultorio</label>
+            <select class="form-control" id="room" name="consultingRoomId" required>
+                <option value="">Seleccione un consultorio</option>
+                <option th:each="room : ${rooms}" 
+                        th:value="${room.id}" 
+                        th:text="'Consultorio ' + ${room.roomNumber + ' - Piso ' + room.floor}"
+                        th:selected="${appointment.consultingRoom.id == room.id}">
+                </option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="appointmentTime" class="form-label">Fecha y Hora</label>
+            <input type="datetime-local" class="form-control" 
+                   id="appointmentTime" name="appointmentTime" required
+                   th:value="${#temporals.format(appointment.appointmentTime, 'yyyy-MM-dd''T''HH:mm')}">
+        </div>
+        
+        <div class="mb-3">
+            <label for="patientName" class="form-label">Nombre del Paciente</label>
+            <input type="text" class="form-control" 
+                   id="patientName" name="patientName" required
+                   th:value="${appointment.patientName}">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a href="/appointments" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</html>

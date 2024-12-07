@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <div class="container py-4">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-4">Bienvenido al Sistema de Citas</h1>
+                <p class="lead">Sistema de gestión de citas para el área de Medicina Interna</p>
+                <hr class="my-4">
+                <p>Seleccione una opción:</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="/appointments/create" class="btn btn-primary btn-lg px-4 me-md-2">
+                        Crear Nueva Cita
+                    </a>
+                    <a href="/appointments" class="btn btn-outline-secondary btn-lg px-4">
+                        Consultar Citas
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-md-stretch">
+            <div class="col-md-4 mb-4">
+                <div class="h-100 p-4 bg-white border rounded-3">
+                    <h5>Gestión de Citas</h5>
+                    <p>Crear, consultar y administrar citas médicas.</p>
+                    <a href="/appointments" class="btn btn-primary">Ir a Citas</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="h-100 p-4 bg-white border rounded-3">
+                    <h5>Doctores</h5>
+                    <p>Ver lista de doctores disponibles.</p>
+                    <a href="/doctors" class="btn btn-primary">Ver Doctores</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="h-100 p-4 bg-white border rounded-3">
+                    <h5>Consultorios</h5>
+                    <p>Información sobre consultorios.</p>
+                    <a href="/rooms" class="btn btn-primary">Ver Consultorios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+    <h2 th:text="${room.id == null ? 'Nuevo Consultorio' : 'Editar Consultorio'}"></h2>
+    
+    <form th:action="@{/rooms/save}" method="post" th:object="${room}">
+        <input type="hidden" th:field="*{id}">
+        
+        <div class="mb-3">
+            <label for="roomNumber" class="form-label">Número de Consultorio</label>
+            <input type="number" class="form-control" id="roomNumber" 
+                   th:field="*{roomNumber}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="floor" class="form-label">Piso</label>
+            <input type="number" class="form-control" id="floor" 
+                   th:field="*{floor}" required>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/rooms" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+</html>
